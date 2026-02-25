@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>WEIRDMAGEDDON</title>
+
+<style>
+
+body{
+background:black;
+color:#ff2a2a;
+font-family:Impact, sans-serif;
+overflow:hidden;
+text-align:center;
+}
+
+/* Background glow */
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:radial-gradient(circle, #300000, black);
+animation:pulse 3s infinite;
+z-index:-1;
+}
+
+@keyframes pulse{
+0%{opacity:.6;}
+50%{opacity:1;}
+100%{opacity:.6;}
+}
+
+/* Countdown */
+#countdown{
+position:absolute;
+top:45%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:70px;
+text-shadow:0 0 20px red,0 0 40px red;
+animation:shake .2s infinite;
+}
+
+/* Final message */
+#message{
+display:none;
+position:absolute;
+top:45%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:80px;
+color:white;
+text-shadow:0 0 40px red;
+animation:glitch 1s infinite;
+}
+
+/* Shake effect */
+@keyframes shake{
+0%{transform:translate(-50%,-50%) translate(1px,1px);}
+50%{transform:translate(-50%,-50%) translate(-1px,-1px);}
+100%{transform:translate(-50%,-50%) translate(1px,-1px);}
+}
+
+/* Glitch */
+@keyframes glitch{
+0%{opacity:1;}
+20%{opacity:.3;}
+40%{opacity:1;}
+60%{opacity:.2;}
+80%{opacity:1;}
+100%{opacity:.5;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="countdown"></div>
+<div id="message">REALITY COLLAPSED</div>
+
+<script>
+
+let countDate =
+new Date("Feb 27, 2026 18:00:00 GMT-0600").getTime();
+
+let x=setInterval(function(){
+
+let now=new Date().getTime();
+let distance=countDate-now;
+
+let h=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+let m=Math.floor((distance%(1000*60*60))/(1000*60));
+let s=Math.floor((distance%(1000*60))/1000);
+
+document.getElementById("countdown").innerHTML=
+h+" : "+m+" : "+s;
+
+if(distance<0){
+clearInterval(x);
+document.getElementById("countdown").style.display="none";
+document.body.style.background="black";
+document.getElementById("message").style.display="block";
+}
+
+},1000);
+
+</script>
+
+</body>
+</html>
